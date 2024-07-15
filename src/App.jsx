@@ -16,6 +16,7 @@ import PageNotFound from "./pages/PageNotFound";
 function App() {
   const router = createBrowserRouter([
     {
+      path: "/",
       element: <AppLayout />,
       children: [
         {
@@ -46,15 +47,15 @@ function App() {
           path: "account",
           element: <Account />,
         },
-        {
-          path: "login",
-          element: <Login />,
-        },
-        {
-          path: "*",
-          element: <PageNotFound />,
-        },
       ],
+    },
+    {
+      path: "login",
+      element: <Login />,
+    },
+    {
+      path: "*",
+      element: <PageNotFound />,
     },
   ]);
   return <RouterProvider router={router} />;
