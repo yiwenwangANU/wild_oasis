@@ -6,41 +6,52 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 
-const FormRow = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
+const FormRow = ({ children }) => (
+  <div className="gird grid-cols-[24rem_1fr_1fr] place-items-center gap-[2.4rem] py-[1.2rem] px-0 first:pt-0 last:pb-0 [:not(last-child)]:border-b has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]">
+    {children}
+  </div>
+);
+// const FormRow = styled.div`
+//   display: grid;
+//   align-items: center;
+//   grid-template-columns: 24rem 1fr 1.2fr;
+//   gap: 2.4rem;
 
-  padding: 1.2rem 0;
+//   padding: 1.2rem 0;
 
-  &:first-child {
-    padding-top: 0;
-  }
+//   &:first-child {
+//     padding-top: 0;
+//   }
 
-  &:last-child {
-    padding-bottom: 0;
-  }
+//   &:last-child {
+//     padding-bottom: 0;
+//   }
 
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
+//   &:not(:last-child) {
+//     border-bottom: 1px solid var(--color-grey-100);
+//   }
 
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
-`;
+//   &:has(button) {
+//     display: flex;
+//     justify-content: flex-end;
+//     gap: 1.2rem;
+//   }
+// `;
 
-const Label = styled.label`
-  font-weight: 500;
-`;
+const Label = ({ children }) => (
+  <label className="font-semibold">{children}</label>
+);
+// const Label = styled.label`
+//   font-weight: 500;
+// `;
 
-const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-700);
-`;
+const Error = ({ children }) => (
+  <span className="text-2xl text-red-700">{children}</span>
+);
+// const Error = styled.span`
+//   font-size: 1.4rem;
+//   color: var(--color-red-700);
+// `;
 
 function CreateCabinForm() {
   return (
