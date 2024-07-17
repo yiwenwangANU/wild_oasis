@@ -1,22 +1,12 @@
-import styled, { keyframes } from "styled-components";
-
-const rotate = keyframes`
-  to {
-    transform: rotate(1turn)
-  }
-`;
-
-const Spinner = styled.div`
-  margin: 4.8rem auto;
-
-  width: 6.4rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(farthest-side, var(--color-brand-600) 94%, #0000)
-      top/10px 10px no-repeat,
-    conic-gradient(#0000 30%, var(--color-brand-600));
-  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 10px), #000 0);
-  animation: ${rotate} 1.5s infinite linear;
-`;
-
-export default Spinner;
+export default function Spinner() {
+  return (
+    <div
+      className="inline-block h-[6.4rem] w-[6.4rem] animate-spin rounded-full border-[12px] border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite] my-[4.8rem] mx-auto"
+      role="status"
+    >
+      <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
+        Loading...
+      </span>
+    </div>
+  );
+}
