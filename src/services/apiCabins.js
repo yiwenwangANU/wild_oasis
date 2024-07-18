@@ -10,7 +10,7 @@ export async function getCabins() {
 }
 
 export async function createCabbin(newCabin) {
-  const { data, error } = await supabase.from("cabins").insert([newCabin]);
+  const { error } = await supabase.from("cabins").insert([newCabin]);
 
   if (error) {
     console.error(error);
