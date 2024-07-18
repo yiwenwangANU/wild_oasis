@@ -3,9 +3,15 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 
 const Main = ({ children }) => (
-  <main className="bg-gray-50 pt-16 px-20 pb-24 max-w-[120rem] mx-auto flex flex-col gap-[3.2rem]">
+  <main className="bg-gray-50 pt-16 px-20 pb-24 flex flex-col gap-[3.2rem] overflow-auto">
     {children}
   </main>
+);
+
+const Container = ({ children }) => (
+  <div className="max-w-[120rem] mx-auto my-0 flex flex-col gap-[3.2rem] ">
+    {children}
+  </div>
 );
 
 function AppLayout() {
@@ -14,7 +20,9 @@ function AppLayout() {
       <Sidebar />
       <Header />
       <Main>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Main>
     </div>
   );
