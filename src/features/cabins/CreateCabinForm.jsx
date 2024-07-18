@@ -1,13 +1,14 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
-import Input from "../../ui/Input";
+import Input from "../../ui/Input.jsx";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
+import { useForm } from "react-hook-form";
 
 const FormRow = ({ children }) => (
-  <div className="gird grid-cols-[24rem_1fr_1fr] place-items-center gap-[2.4rem] py-[1.2rem] px-0 first:pt-0 last:pb-0 [:not(last-child)]:border-b has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]">
+  <div className="grid grid-cols-[24rem_1fr_1.2fr] items-center gap-[2.4rem] py-[1.2rem] px-0 first:pt-0 last:pb-0 last:border-0 border border-[#f3f4f6] has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]">
     {children}
   </div>
 );
@@ -38,47 +39,64 @@ const FormRow = ({ children }) => (
 //   }
 // `;
 
-const Label = ({ children }) => (
-  <label className="font-semibold">{children}</label>
+const Label = ({ children, htmlFor }) => (
+  <label htmlFor={htmlFor} className="font-semibold">
+    {children}
+  </label>
 );
 // const Label = styled.label`
 //   font-weight: 500;
 // `;
 
-const Error = ({ children }) => (
-  <span className="text-2xl text-red-700">{children}</span>
-);
+// const Error = ({ children }) => (
+//   <span className="text-2xl text-red-700">{children}</span>
+// );
 // const Error = styled.span`
 //   font-size: 1.4rem;
 //   color: var(--color-red-700);
 // `;
 
+function onSubmit(data) {
+  console.log(data);
+}
+
 function CreateCabinForm() {
+  const { register, handleSubmit } = useForm();
   return (
-    <Form>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
-        <Input type="text" id="name" />
+        <Input type="text" id="name" {...register("name")} />
       </FormRow>
 
       <FormRow>
         <Label htmlFor="maxCapacity">Maximum capacity</Label>
-        <Input type="number" id="maxCapacity" />
+        <Input type="number" id="maxCapacity" {...register("maxCapacity")} />
       </FormRow>
 
       <FormRow>
         <Label htmlFor="regularPrice">Regular price</Label>
-        <Input type="number" id="regularPrice" />
+        <Input type="number" id="regularPrice" {...register("regularPrice")} />
       </FormRow>
 
       <FormRow>
         <Label htmlFor="discount">Discount</Label>
-        <Input type="number" id="discount" defaultValue={0} />
+        <Input
+          type="number"
+          id="discount"
+          defaultValue={0}
+          {...register("discount")}
+        />
       </FormRow>
 
       <FormRow>
         <Label htmlFor="description">Description for website</Label>
-        <Textarea type="number" id="description" defaultValue="" />
+        <Textarea
+          type="number"
+          id="description"
+          defaultValue=""
+          {...register("description")}
+        />
       </FormRow>
 
       <FormRow>

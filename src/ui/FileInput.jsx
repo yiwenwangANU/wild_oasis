@@ -1,4 +1,4 @@
-import styled from "styled-components";
+// import styled from "styled-components";
 
 // const FileInput = styled.input`
 //   font-size: 1.4rem;
@@ -22,5 +22,7 @@ import styled from "styled-components";
 //   }
 // `;
 
-const FileInput = () => <input className="text-2xl rounded-sm" />;
+const FileInput = ({ props }) => (
+  <input {...props} className="text-2xl rounded-sm border-gray-100" />
+);
 export default FileInput;

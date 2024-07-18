@@ -61,7 +61,7 @@
 //   size: "medium",
 // };
 
-const Button = ({ size, variation, children }) => {
+const Button = ({ size, variation, children, ...rest }) => {
   const sizes = {
     small: "text-sm py-1 px-2 uppercase font-semibold text-center",
     medium: "text-2xl py-3 px-4 font-semibold",
@@ -79,7 +79,10 @@ const Button = ({ size, variation, children }) => {
   const variationClass = variation ? variations[variation] : variations.primary;
   const styles = `${sizeClass} ${variationClass} border-0 rounded-md shadow-sm`;
 
-  console.log(styles);
-  return <button className={styles}>{children}</button>;
+  return (
+    <button {...rest} className={styles}>
+      {children}
+    </button>
+  );
 };
 export default Button;

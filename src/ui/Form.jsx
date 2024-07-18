@@ -22,14 +22,17 @@
 //   font-size: 1.4rem;
 // `;
 
-const Form = ({ children, type }) => {
+const Form = ({ children, type, onSubmit }) => {
   if (type == "modal")
     return (
       <form className="overflow-hidden text-2xl w-[80rem]">{children}</form>
     );
   else
     return (
-      <form className="overflow-hidden text-2xl py-[2.4rem] px-[4rem] bg-[#fff] border-solid border-gray-100 rounded-md border-2">
+      <form
+        onSubmit={onSubmit}
+        className="overflow-hidden text-2xl py-[2.4rem] px-[4rem] bg-[#fff] border-solid border-gray-100 rounded-md border-2"
+      >
         {children}
       </form>
     );
