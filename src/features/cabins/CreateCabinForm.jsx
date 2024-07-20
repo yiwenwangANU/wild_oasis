@@ -1,42 +1,40 @@
-// import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 import Input from "../../ui/Input.jsx";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
-import { useForm } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabbin } from "../../services/apiCabins.js";
-import toast from "react-hot-toast";
 import FormRow from "../../ui/FormRow.jsx";
-// const Label = ({ children, htmlFor }) => (
-//   <label htmlFor={htmlFor} className="font-semibold">
-//     {children}
-//   </label>
-// );
-
-// const Error = ({ children }) => (
-//   <span className="text-2xl text-red-700">{children}</span>
-// );
+import { createCabbin } from "../../services/apiCabins.js";
 
 function CreateCabinForm() {
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
-  const { errors } = formState;
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm();
+
+  // @react-query: Access the client
   const queryClient = useQueryClient();
+  // @react-query: Mutation
   const { isPending, mutate } = useMutation({
     mutationFn: createCabbin,
     onSuccess: () => {
       // Invalidate and refetch
-      toast.success("New cabin successfully created!");
       queryClient.invalidateQueries({ queryKey: ["getCabins"] });
+      toast.success("New cabin successfully created!");
       reset();
     },
     onError: (err) => toast.error(err.message),
   });
 
   function onSubmit(data) {
-    mutate(data);
+    mutate({ ...data, image: data.image[0] });
   }
 
   function onError(errors) {
@@ -46,7 +44,7 @@ function CreateCabinForm() {
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
-          type="number"
+          type="text"
           id="name"
           disabled={isPending}
           {...register("name", {
@@ -113,7 +111,10 @@ function CreateCabinForm() {
         />
       </FormRow>
       <FormRow label="Cabin photo">
-        <FileInput id="image" accept="image/*" />
+        <FileInput
+          id="image"
+          {...register("image", { required: "this field is required" })}
+        />
       </FormRow>
 
       <FormRow>

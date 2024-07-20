@@ -1,5 +1,7 @@
 // import styled from "styled-components";
 
+import { forwardRef } from "react";
+
 // const FileInput = styled.input`
 //   font-size: 1.4rem;
 //   border-radius: var(--border-radius-sm);
@@ -22,7 +24,13 @@
 //   }
 // `;
 
-const FileInput = ({ props }) => (
-  <input {...props} className="text-2xl rounded-sm border-gray-100" />
-);
+const FileInput = forwardRef((props, ref) => (
+  <input
+    {...props}
+    ref={ref}
+    type="file"
+    className="text-2xl rounded-md file:font-medium file:px-[1.2rem] file:py-[0.8rem] file:mr-[1.2rem] file:rounded-md file:border-0 file:text-[#eef2ff] file:bg-[#4f46e5] file:cursor-pointer file:transition-all file:duration-200 file:hover:bg-[#4338ca]"
+  />
+));
+FileInput.displayName = "FileInput";
 export default FileInput;
