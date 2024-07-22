@@ -1,7 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
+import useCabins from "./useCabins";
 
 function CabinTable() {
   const Table = ({ children }) => (
@@ -16,10 +15,7 @@ function CabinTable() {
     </div>
   );
 
-  const { isPending, data: cabins } = useQuery({
-    queryKey: ["getCabins"],
-    queryFn: getCabins,
-  });
+  const { isPending, cabins } = useCabins();
   if (isPending) return <Spinner />;
 
   return (

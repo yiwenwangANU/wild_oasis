@@ -1,9 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { formatCurrency } from "../../utils/helpers";
-import { deleteCabin } from "../../services/apiCabins";
-import toast from "react-hot-toast";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
+import useDeleteCabin from "./useDeleteCabin";
 const TableRow = ({ children }) => (
   <div className="grid bg-white grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr] gap-6 place-items-center py-3.5 px-6 border-b last:border-b-0 border-gray-200">
     {children}
@@ -32,6 +30,7 @@ const Discount = ({ children }) => (
 
 function CabinRow({ cabin }) {
   const [showForm, setShowForm] = useState(false);
+  const { isDeleting, deleteCabin } = useDeleteCabin();
   const {
     id: cabinId,
     name,
@@ -40,17 +39,7 @@ function CabinRow({ cabin }) {
     image,
     regularPrice,
   } = cabin;
-  const queryClient = useQueryClient();
-  const { isPending, mutate } = useMutation({
-    mutationFn: (id) => deleteCabin(id),
-    onSuccess: () => {
-      toast.success("Cabin successfully deleted");
-      queryClient.invalidateQueries({ queryKey: ["getCabins"] });
-    },
-    onError: (err) => {
-      toast.error(err.message);
-    },
-  });
+
   return (
     <>
       <TableRow role="row">
@@ -58,15 +47,19 @@ function CabinRow({ cabin }) {
         <Cabin>{name}</Cabin>
         <div>Fit up to {maxCapacity} guests</div>
         <Price>{formatCurrency(regularPrice)}</Price>
-        <Discount>{formatCurrency(discount)}</Discount>
+        {discount ? (
+          <Discount>{formatCurrency(discount)}</Discount>
+        ) : (
+          <span>&mdash;</span>
+        )}
         <div>
           <button onClick={() => setShowForm((showForm) => !showForm)}>
             Edit
           </button>
           <button
             className="text-red-600 bg-red-100 rounded-md px-5 py-2.5 text-lg uppercase font-semibold"
-            onClick={() => mutate(cabinId)}
-            disabled={isPending}
+            onClick={() => deleteCabin(cabinId)}
+            disabled={isDeleting}
           >
             Delete
           </button>
