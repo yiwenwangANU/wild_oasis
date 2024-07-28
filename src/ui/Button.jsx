@@ -6,15 +6,15 @@ const Button = ({ size, variation, children, ...rest }) => {
   };
 
   const variations = {
-    primary: "text-[#eef2ff] bg-[#4f46e5] hover:bg-#4338ca",
+    primary: "text-[#eef2ff] bg-[#4f46e5] hover:bg-[#4338ca]",
     secondary:
-      "text-gray-600 bg-gray-0 border border-gray-200 hover:bg-gray-50",
+      "text-[#4b5563] bg-white border-[1px] border-[#e5e7eb] hover:bg-[#f9fafb]",
     danger: "text-red-100 bg-red-700 hover:bg-red-800",
   };
 
   const sizeClass = size ? sizes[size] : sizes.medium;
   const variationClass = variation ? variations[variation] : variations.primary;
-  const styles = `${sizeClass} ${variationClass} border-0 rounded-md shadow-sm`;
+  const styles = `${sizeClass} ${variationClass} border-0 rounded-md shadow-sm `;
 
   return (
     <button {...rest} className={styles}>

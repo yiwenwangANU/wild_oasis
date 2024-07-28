@@ -12,7 +12,7 @@ import useUpdateCabin from "./useUpdateCabin.js";
 // if without cabinToEdit prop, display create cabin form
 // if with cabinToEdit prop, display the form with default values filled
 // cabinToEdit do not contain image data
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit = {}, onClose }) {
   const { id: editId, ...editValue } = cabinToEdit;
   const isEditting = Boolean(editId);
   const { isCreating, createCabin } = useCreateCabin();
@@ -27,10 +27,26 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
   function onSubmit(data) {
     if (!isEditting) {
-      createCabin({ ...data }, { onSuccess: () => reset() });
+      createCabin(
+        { ...data },
+        {
+          onSuccess: () => {
+            reset();
+            onClose?.();
+          },
+        }
+      );
     }
     if (isEditting) {
-      editCabin({ ...data }, { onSuccess: () => reset() });
+      editCabin(
+        { ...data },
+        {
+          onSuccess: () => {
+            reset();
+            onClose?.();
+          },
+        }
+      );
     }
   }
 
@@ -38,7 +54,10 @@ function CreateCabinForm({ cabinToEdit = {} }) {
     console.log(errors);
   }
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit, onError)}
+      type={onClose ? "modal" : "regular"}
+    >
       {isEditting && <input type="hidden" value={editId} {...register("id")} />}
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
@@ -118,7 +137,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" onClick={() => onClose?.()}>
           Cancel
         </Button>
         <Button disabled={isCreating || isEditing}>
