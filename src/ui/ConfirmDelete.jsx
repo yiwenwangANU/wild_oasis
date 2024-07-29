@@ -20,7 +20,7 @@ import Heading from "./Heading";
 //   }
 // `;
 
-function ConfirmDelete({ resourceName, onConfirm, disabled }) {
+function ConfirmDelete({ resourceName, onConfirm, onClose, disabled }) {
   return (
     <div className="w-[40rem] flex flex-col gap-[1.2rem]">
       <Heading as="h3">Delete {resourceName}</Heading>
@@ -30,10 +30,10 @@ function ConfirmDelete({ resourceName, onConfirm, disabled }) {
       </p>
 
       <div className="flex justify-end gap-[1.2rem]">
-        <Button variation="secondary" disabled={disabled}>
+        <Button variation="secondary" onClick={onClose} disabled={disabled}>
           Cancel
         </Button>
-        <Button variation="danger" disabled={disabled}>
+        <Button variation="danger" onClick={onConfirm} disabled={disabled}>
           Delete
         </Button>
       </div>

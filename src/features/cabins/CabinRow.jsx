@@ -5,6 +5,8 @@ import useDeleteCabin from "./useDeleteCabin";
 import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import useCreateCabin from "./useCreateCabin";
 import Modal from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+
 const TableRow = ({ children }) => (
   <div className="grid bg-white grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr] gap-6 place-items-center py-3.5 px-6 border-b last:border-b-0 border-gray-200">
     {children}
@@ -33,6 +35,7 @@ const Discount = ({ children }) => (
 
 function CabinRow({ cabin }) {
   const [showForm, setShowForm] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { isCreating, createCabin } = useCreateCabin();
   const {
@@ -71,17 +74,37 @@ function CabinRow({ cabin }) {
           <button onClick={() => handleDuplicate()} disabled={isCreating}>
             <HiSquare2Stack />
           </button>
+
           <button onClick={() => setShowForm((showForm) => !showForm)}>
             <HiPencil />
           </button>
-          <button onClick={() => deleteCabin(cabinId)} disabled={isDeleting}>
+          <button
+            onClick={() => {
+              // deleteCabin(cabinId);
+              setShowDeleteConfirm(true);
+            }}
+            disabled={isDeleting}
+          >
             <HiTrash />
           </button>
         </div>
       </TableRow>
       {showForm && (
         <Modal onClose={() => setShowForm(false)}>
-          <CreateCabinForm cabinToEdit={cabin} />
+          <CreateCabinForm
+            cabinToEdit={cabin}
+            onClose={() => setShowForm(false)}
+          />
+        </Modal>
+      )}
+      {showDeleteConfirm && (
+        <Modal onClose={() => setShowDeleteConfirm(false)}>
+          <ConfirmDelete
+            resourceName="cabins"
+            disabled={isDeleting}
+            onConfirm={() => deleteCabin(cabinId)}
+            onClose={() => setShowDeleteConfirm(false)}
+          />
         </Modal>
       )}
     </>
