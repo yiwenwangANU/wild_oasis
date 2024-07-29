@@ -1,13 +1,19 @@
+import { forwardRef } from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
+import useOutsideClick from "../hooks/useOutsideClick";
 
-const StyledModal = ({ children }) => {
+const StyledModal = forwardRef(({ children }, ref) => {
   return (
-    <div className="fixed top-1/2 left-1/2 bg-white rounded-lg shadow-lg px-[4rem] py-[3.2rem] transition-all duration-500 transform -translate-x-1/2 -translate-y-1/2">
+    <div
+      ref={ref}
+      className="fixed top-1/2 left-1/2 bg-white rounded-lg shadow-lg px-[4rem] py-[3.2rem] transition-all duration-500 transform -translate-x-1/2 -translate-y-1/2"
+    >
       {children}
     </div>
   );
-};
+});
+StyledModal.displayName = "StyledModal";
 
 const Overlay = ({ children }) => {
   return (
@@ -27,35 +33,12 @@ const Button = ({ children, ...rest }) => {
     </button>
   );
 };
-// const Button = styled.button`
-//   background: none;
-//   border: none;
-//   padding: 0.4rem;
-//   border-radius: var(--border-radius-sm);
-//   transform: translateX(0.8rem);
-//   transition: all 0.2s;
-//   position: absolute;
-//   top: 1.2rem;
-//   right: 1.9rem;
-
-//   &:hover {
-//     background-color: var(--color-grey-100);
-//   }
-
-//   & svg {
-//     width: 2.4rem;
-//     height: 2.4rem;
-//     /* Sometimes we need both */
-//     /* fill: var(--color-grey-500);
-//     stroke: var(--color-grey-500); */
-//     color: var(--color-grey-500);
-//   }
-// `;
 
 function Modal({ children, onClose }) {
+  const ref = useOutsideClick(onClose);
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={onClose}>
           <HiXMark />
         </Button>
