@@ -66,28 +66,28 @@ function CabinRow({ cabin }) {
           <span>&mdash;</span>
         )}
         <div>
-          <button onClick={() => handleDuplicate()} disabled={isCreating}>
-            <HiSquare2Stack />
-          </button>
-
-          <button onClick={() => setShowForm((showForm) => !showForm)}>
-            <HiPencil />
-          </button>
-          <button
-            onClick={() => {
-              setShowDeleteConfirm(true);
-            }}
-            disabled={isDeleting}
-          >
-            <HiTrash />
-          </button>
           <Menus.Menu>
             <Menus.Toggle id={cabinId} />
             <Menus.List id={cabinId}>
-              <Menus.Button>Duplicate</Menus.Button>
-              <Menus.Button>Edit</Menus.Button>
-              <Menus.Button>Delete</Menus.Button>
+              <Menus.Button icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+                Duplicate
+              </Menus.Button>
+              <div onClick={() => setShowForm((showForm) => !showForm)}>
+                <Menus.Button icon={<HiPencil />}>Edit</Menus.Button>
+              </div>
+
+              <div
+                onClick={() => {
+                  setShowDeleteConfirm(true);
+                }}
+                disabled={isDeleting}
+              >
+                <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
+              </div>
             </Menus.List>
+            {/* <button onClick={() => handleDuplicate()} disabled={isCreating}>
+              <HiSquare2Stack />
+            </button> */}
           </Menus.Menu>
         </div>
       </Table.Row>
