@@ -9,7 +9,7 @@ const Main = ({ children }) => (
 );
 
 const Container = ({ children }) => (
-  <div className="max-w-[120rem] mx-auto my-0 flex flex-col gap-[3.2rem] ">
+  <div className="max-w-[100rem] w-full mx-auto my-0 flex flex-col gap-[3.2rem] ">
     {children}
   </div>
 );
