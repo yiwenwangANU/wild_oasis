@@ -1,15 +1,4 @@
-// import styled from "styled-components";
-
 import { createContext, useContext } from "react";
-
-// const StyledTable = styled.div`
-//   border: 1px solid var(--color-grey-200);
-
-//   font-size: 1.4rem;
-//   background-color: var(--color-grey-0);
-//   border-radius: 7px;
-//   overflow: hidden;
-// `;
 
 const StyledTable = ({ children }) => {
   return (
@@ -19,13 +8,6 @@ const StyledTable = ({ children }) => {
   );
 };
 
-// const CommonRow = styled.div`
-//   display: grid;
-//   grid-template-columns: ${(props) => props.columns};
-//   column-gap: 2.4rem;
-//   align-items: center;
-//   transition: none;
-// `;
 const CommonRow = ({ children, columns, className = "" }) => {
   const gridTemplateColumns = columns;
   return (
@@ -94,7 +76,10 @@ function Row({ children }) {
   const { columns } = useContext(tableContext);
   return <StyledRow columns={columns}>{children}</StyledRow>;
 }
-function Body({ children }) {}
+function Body({ data, render }) {
+  if (!data) return <Empty>No data to show this moment.</Empty>;
+  return <StyledBody>{data.map(render)}</StyledBody>;
+}
 
 Table.Header = Header;
 Table.Row = Row;

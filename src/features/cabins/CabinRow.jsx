@@ -7,11 +7,6 @@ import useCreateCabin from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
-// const TableRow = ({ children }) => (
-//   <div className="grid bg-white grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr] gap-6 place-items-center py-3.5 px-6 border-b last:border-b-0 border-gray-200">
-//     {children}
-//   </div>
-// );
 
 const Img = ({ src, alt }) => (
   <img
@@ -80,7 +75,6 @@ function CabinRow({ cabin }) {
           </button>
           <button
             onClick={() => {
-              // deleteCabin(cabinId);
               setShowDeleteConfirm(true);
             }}
             disabled={isDeleting}
