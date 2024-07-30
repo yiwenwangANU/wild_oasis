@@ -7,11 +7,11 @@ import useCreateCabin from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
-const Img = ({ src, alt }) => (
+const Img = ({ ...rest }) => (
   <img
-    src={src}
-    alt={alt}
+    {...rest}
     className="block w-16 aspect-[3/2] object-cover object-center transform scale-[1.5] -translate-x-[7px]"
   />
 );
@@ -81,6 +81,14 @@ function CabinRow({ cabin }) {
           >
             <HiTrash />
           </button>
+          <Menus.Menu>
+            <Menus.Toggle id={cabinId} />
+            <Menus.List id={cabinId}>
+              <Menus.Button>Duplicate</Menus.Button>
+              <Menus.Button>Edit</Menus.Button>
+              <Menus.Button>Delete</Menus.Button>
+            </Menus.List>
+          </Menus.Menu>
         </div>
       </Table.Row>
       {showForm && (
