@@ -10,6 +10,7 @@ export async function getCabins() {
 }
 // get newCabin when create cabin, get newCabin & id when edit cabin
 export async function createEditCabin(newCabin) {
+  console.log("API create cabin");
   const id = newCabin.id;
   const hasImagePath = newCabin.image?.includes?.("http");
   const imageName = `${Math.random()}-${newCabin.image[0].name}`.replaceAll(
